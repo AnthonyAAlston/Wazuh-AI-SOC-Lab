@@ -1,0 +1,24 @@
+[Unit]
+Description=Wazuh AI Forwarder
+After=network-online.target wazuh-manager.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wazuh-ai
+Group=wazuh-ai
+SupplementaryGroups=wazuh
+EnvironmentFile=/etc/wazuh-ai-forwarder.env
+ExecStart=/opt/wazuh-ai-forwarder/venv/bin/python /opt/wazuh-ai-forwarder/wazuh_ai_forwarder.py
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/var/ossec/logs/alerts
+ReadWritePaths=/var/lib/wazuh-ai-forwarder
+
+[Install]
+WantedBy=multi-user.target

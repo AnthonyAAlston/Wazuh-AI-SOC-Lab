@@ -1,0 +1,2 @@
+<!-- Add inside the existing <syscheck> block on the Windows Wazuh agent. -->
+<directories realtime="yes" report_changes="yes">C:\Wazuh-FIM-Test</directories>

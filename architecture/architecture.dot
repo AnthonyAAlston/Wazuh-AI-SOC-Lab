@@ -1,0 +1,22 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", pad="0.4", nodesep="0.55", ranksep="0.75"];
+  node [shape=box, style="rounded", fontname="Arial", fontsize=12, margin="0.18,0.12"];
+  edge [fontname="Arial", fontsize=10];
+
+  win [label="Windows 11 Endpoint\nWazuh Agent"];
+  wazuh [label="Ubuntu Server 24.04\nWazuh Manager / Indexer"];
+  fim [label="File Integrity Monitoring\nRules 550 / 554"];
+  py [label="Python AI Forwarder\nFlask + Waitress + systemd"];
+  openai [label="OpenAI API\nStructured SOC Analysis"];
+  api [label="Authenticated Local API\n/health  /api/latest  /api/analyses"];
+  lan [label="Lab Network\n192.168.1.0/24"];
+  netalert [label="NetAlertX in Docker\nNetwork Asset Discovery"];
+
+  win -> wazuh [label="Wazuh events"];
+  wazuh -> fim;
+  fim -> py [label="alerts.json"];
+  py -> openai [label="HTTPS"];
+  openai -> py [label="JSON analysis"];
+  py -> api;
+  lan -> netalert [label="ARP scan"];
+}
